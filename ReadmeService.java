@@ -1,0 +1,7 @@
+package com.devforge.service;
+import java.util.*;
+public final class ReadmeService {
+ public String generate(Map<String,String> f){String name=clean(f.getOrDefault("Project name","My Project"));StringBuilder b=new StringBuilder("# ").append(name).append("\n\n");String desc=f.getOrDefault("Short description","").trim();if(!desc.isEmpty())b.append(desc).append("\n\n");section(b,"Overview",f.get("Project overview"));section(b,"Features",f.get("Features"));section(b,"Technologies",f.get("Technologies used"));section(b,"Prerequisites",f.get("Prerequisites"));section(b,"Installation",f.get("Installation steps"));section(b,"Usage",f.get("Usage instructions"));section(b,"Project Structure",f.get("Project structure"));section(b,"Screenshots",f.get("Screenshots or image paths"));section(b,"Contributing",f.get("Contribution guidelines"));section(b,"License",f.get("License"));String author=f.get("Author or maintainer");if(author!=null&&!author.isBlank())b.append("\n---\n\nMaintained by **").append(clean(author)).append("**\n");for(String k:List.of("Contact or repository links")){String v=f.get(k);if(v!=null&&!v.isBlank())b.append("\n").append(v.trim()).append("\n");}return b.toString();}
+ private void section(StringBuilder b,String title,String value){if(value!=null&&!value.isBlank())b.append("## ").append(title).append("\n\n").append(value.trim()).append("\n\n");}
+ private String clean(String s){return s.replace("\r","").replace("\n"," ").trim();}
+}
